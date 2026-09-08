@@ -1,6 +1,7 @@
 import { mkdir } from "node:fs/promises";
 import { join } from "node:path";
 import { withTypes } from "@ilbertt/bun-sqlgen";
+import { runMigrations } from "./migrate";
 import type { Queries } from "./queries.gen";
 
 const dataDir = process.env.NIBRUN_DATA_DIR ?? join(process.cwd(), "data");
@@ -17,38 +18,7 @@ export const sql = withTypes<Queries>(
 );
 
 await sql.unsafe("PRAGMA journal_mode = WAL");
-await runMigrations();
-
-async function runMigrations() {
-	await sql.unsafe(`
-    create table if not exists "__migrations" (
-      "name" text primary key,
-      "applied_at" text not null
-    )
-  `);
-
-	const applied = new Set(
-		(
-			(await sql.unsafe('select "name" from "__migrations"')) as Array<{
-				name: string;
-			}>
-		).map((migration) => migration.name),
-	);
-
-	for (const migration of await migrations()) {
-		if (applied.has(migration.name)) {
-			continue;
-		}
-
-		await sql.begin(async (transaction) => {
-			await transaction.unsafe(migration.sql);
-			await transaction.unsafe(
-				'insert into "__migrations" ("name", "applied_at") values ($1, $2)',
-				[migration.name, new Date().toISOString()],
-			);
-		});
-	}
-}
+await runMigrations(sql, await migrations());
 
 async function migrations(): Promise<Array<{ name: string; sql: string }>> {
 	if (Bun.isStandaloneExecutable) {
