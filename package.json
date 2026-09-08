@@ -1,0 +1,46 @@
+{
+  "name": "tanstack-start-nibrun",
+  "private": true,
+  "type": "module",
+  "imports": {
+    "#/*": "./src/*"
+  },
+  "scripts": {
+    "dev": "bun --bun vite dev --port 3000",
+    "generate-routes": "tsr generate",
+    "build": "bun run scripts/build.ts",
+    "build:app": "bun --bun vite build",
+    "build:local": "BUILD_TARGET=host bun run build",
+    "db:gen": "bun run --bun bun-sqlgen generate 'src/db/*.ts' --migrations src/db/migrations --out src/db/queries.gen.ts --dialect sqlite",
+    "check:types": "bun run db:gen --check && bun --bun tsc --noEmit",
+    "format": "biome format",
+    "lint": "biome lint",
+    "check": "bun run check:types && biome check"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.102.8",
+    "@tanstack/react-router": "latest",
+    "@tanstack/react-start": "latest",
+    "nitro": "3.0.260610-beta",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.4.5",
+    "@ilbertt/bun-sqlgen": "^0.5.1",
+    "@tanstack/router-cli": "^1.132.0",
+    "@types/bun": "1.4.2",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^6.0.1",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "lightningcss"
+    ]
+  }
+}
