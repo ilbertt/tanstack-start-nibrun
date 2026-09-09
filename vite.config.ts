@@ -7,7 +7,7 @@ const config = defineConfig({
 	resolve: { tsconfigPaths: true },
 	ssr: { resolve: { conditions: ["bun"] } },
 	plugins: [
-		nitro({ preset: "bun" }),
+		nitro({ preset: "bun", serveStatic: "inline" }),
 
 		tanstackStart(),
 		viteReact(),
