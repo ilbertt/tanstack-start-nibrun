@@ -13,9 +13,9 @@
     "build:local": "BUILD_TARGET=host bun run build",
     "db:gen": "bun run --bun bun-sqlgen generate 'src/db/*.ts' --migrations src/db/migrations --out src/db/queries.gen.ts --dialect sqlite",
     "check:types": "bun run db:gen --check && bun --bun tsc --noEmit",
-    "format": "biome format",
-    "lint": "biome lint",
-    "check": "bun run check:types && biome check"
+    "check:codestyle": "bun run --bun biome check",
+    "check:all": "bun run --parallel check:types check:codestyle",
+    "fix:codestyle": "bun run --bun biome check --write"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.102.8",
@@ -26,7 +26,7 @@
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.5",
+    "@biomejs/biome": "2.5.11",
     "@ilbertt/bun-sqlgen": "^0.5.1",
     "@tanstack/router-cli": "^1.132.0",
     "@types/bun": "1.4.2",
