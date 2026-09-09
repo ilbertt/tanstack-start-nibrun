@@ -6,11 +6,7 @@ import { defineConfig } from 'vite';
 const config = defineConfig({
   resolve: { tsconfigPaths: true },
   ssr: { resolve: { conditions: ['bun'] } },
-  plugins: [
-    nitro({ preset: 'bun' }),
-    tanstackStart(),
-    viteReact(),
-  ],
+  plugins: [nitro({ preset: 'bun', serveStatic: 'inline' }), tanstackStart(), viteReact()],
 });
 
 export default config;
