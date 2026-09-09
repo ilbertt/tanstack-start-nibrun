@@ -25,10 +25,10 @@ Open http://localhost:3000. The local SQLite database is created at `data/calls.
 
 ```sh
 bun run db:gen
-bun run check
+bun run check:all
 ```
 
-`db:gen` regenerates `src/db/queries.gen.ts` from the migrations and named SQL queries. `check` verifies the generated output, TypeScript, formatting, and lint rules.
+`db:gen` regenerates `src/db/queries.gen.ts` from the migrations and named SQL queries. `check:all` verifies the generated output, TypeScript, formatting, and lint rules. Run `bun run fix:codestyle` to apply the formatter and safe lint fixes.
 
 ## Deploy on Nibrun
 
