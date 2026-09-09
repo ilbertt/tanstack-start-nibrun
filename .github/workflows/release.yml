@@ -15,12 +15,7 @@ jobs:
           # The version counts the day's existing tags, which a shallow clone has none of.
           fetch-depth: 0
 
-      - uses: oven-sh/setup-bun@v2
-        with:
-          bun-version-file: .bun-version
-
-      - name: Install dependencies
-        run: bun install --frozen-lockfile
+      - uses: ./.github/actions/prepare
 
       - name: Build
         run: bun run build
