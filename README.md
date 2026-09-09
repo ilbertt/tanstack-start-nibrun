@@ -57,3 +57,11 @@ nib run ./dist/app --app tanstack-start-nibrun-vjrd7d --port 3000
 ```sh
 curl -fsS https://tanstack-start-nibrun-vjrd7d.nibrun.app/api/health
 ```
+
+### Agent skill
+
+The [deploy-to-nibrun skill](https://github.com/ilbertt/nibrun/blob/main/skills/deploy-to-nibrun/SKILL.md) is vendored under `.agents/skills/`, so a coding agent working in this repository has the deploy commands, the guest contract and the tradeoffs without being told them. Refresh it with:
+
+```sh
+bunx skills add ilbertt/nibrun
+```
