@@ -64,3 +64,11 @@ For a versioned binary, run the **release** workflow from the Actions tab. It bu
 binary, tags the commit it ran on with the date — `v2026.9.9-1`, and a second cut that day is `-2`
 — and attaches the binary to a GitHub Release. Manual dispatch only: nothing releases on a push,
 and the button at the top of this file deploys whatever the newest release holds.
+
+### Agent skill
+
+The [deploy-to-nibrun skill](https://github.com/ilbertt/nibrun/blob/main/skills/deploy-to-nibrun/SKILL.md) is vendored under `.agents/skills/`, so a coding agent working in this repository has the deploy commands, the guest contract and the tradeoffs without being told them. Refresh it with:
+
+```sh
+bunx skills add ilbertt/nibrun
+```
